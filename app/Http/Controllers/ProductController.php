@@ -18,7 +18,9 @@ class ProductController extends Controller
         $search = $request->input('search');
         $query = Product::latest();
         if ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query
+                ->where('name', 'like', '%' . $search . '%')
+                ->orWhere('detail', 'like', '%' . $search . '%');
         }
         $products = $query->paginate($perPage);
         return view('products.index', compact('products', 'search'))
