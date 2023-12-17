@@ -11,10 +11,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(5);
-        return view('products.index', compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
+        // Ambil nilai 'perPage' dari query string, default 5 jika tidak ada.
+        $perPage = $request->input('perPage', session('perPage', 5));
+        // Simpan nilai 'perPage' dalam session.
+        session(['perPage' => $perPage]);
+        $products = Product::latest()->paginate($perPage);
+        return view('products.index', compact('products'))
+            ->with('i', ($request->input('page', 1) - 1) * $perPage)
+            ->with('perPage', $perPage); // Mengirimkan $perPage ke view untuk digunakan dalam form dropdown.
     }
 
     /**

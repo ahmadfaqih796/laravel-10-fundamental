@@ -47,6 +47,16 @@
    @endforeach
 </table>
 
-{!! $products->links() !!}
+<form action="{{ route('products.index') }}" method="get">
+   <label for="perPage">Items per page:</label>
+   <select name="perPage" id="perPage" onchange="this.form.submit()">
+      <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+      <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+      <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+   </select>
+</form>
+
+<!-- {!! $products->links() !!} -->
+{!! $products->appends(['perPage' => $perPage])->links() !!}
 
 @endsection
