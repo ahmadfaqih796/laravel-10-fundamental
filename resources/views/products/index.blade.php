@@ -4,7 +4,7 @@
 <div class="row">
    <div class="col-lg-12 margin-tb">
       <div class="pull-left">
-         <h2>How To Create CRUD Operation In Laravel 10 - Leravio</h2>
+         <h2>How To Create CRUD Operation In Laravel 10</h2>
       </div>
       <div class="pull-right">
          <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
