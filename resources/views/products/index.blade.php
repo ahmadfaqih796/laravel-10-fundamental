@@ -7,6 +7,12 @@
          <h2>How To Create CRUD Operation In Laravel 10</h2>
       </div>
       <div class="pull-right">
+         <!-- Form pencarian -->
+         <form action="{{ route('products.index') }}" method="get">
+            <label for="search">Search by Name:</label>
+            <input type="text" name="search" id="search" value="{{ $search }}">
+            <button type="submit">Search</button>
+         </form>
          <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
       </div>
    </div>

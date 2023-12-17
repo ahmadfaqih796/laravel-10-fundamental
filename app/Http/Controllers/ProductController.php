@@ -13,12 +13,15 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil nilai 'perPage' dari query string, default 5 jika tidak ada.
         $perPage = $request->input('perPage', session('perPage', 5));
-        // Simpan nilai 'perPage' dalam session.
         session(['perPage' => $perPage]);
-        $products = Product::latest()->paginate($perPage);
-        return view('products.index', compact('products'))
+        $search = $request->input('search');
+        $query = Product::latest();
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+        $products = $query->paginate($perPage);
+        return view('products.index', compact('products', 'search'))
             ->with('i', ($request->input('page', 1) - 1) * $perPage)
             ->with('perPage', $perPage); // Mengirimkan $perPage ke view untuk digunakan dalam form dropdown.
     }
